@@ -9,6 +9,7 @@ pipeline {
     stage('Cloning Git') {
       steps {
         git 'https://github.com/geordin/spring-petclinic.git'
+        credentialsId: 'github'
       }
     }
     stage('Compile') {
