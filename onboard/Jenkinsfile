@@ -11,7 +11,7 @@ node {
 	stage('Initialize Keptn') {
 
         // Initialize the Keptn Project - ensures the Keptn Project is created with the passed shipyard
-        keptn.keptnInit project:"demo", service:"cart", shipyard:'shipyard.yaml'
+        keptn.keptnInit project:"demo", service:"cart", stage:"dev", shipyard:'shipyard.yaml'
 
         // Upload all the files
         keptn.keptnAddResources('keptn-templates/carts.tgz','helm/carts.tgz')
