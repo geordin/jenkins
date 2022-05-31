@@ -50,9 +50,9 @@ pipeline {
     stage('Trigger Delivery') {
       steps{
         build job:'deploy' , parameters:[
-          string(name: 'Project',value: 'petclinic'),
+          string(name: 'Project',value: 'sockshop'),
           string(name: 'Stage',value:'dev'),
-          string(name: 'Service',value:'petclinic'),
+          string(name: 'Service',value:'carts'),
           string(name: 'Image',value:"docker.io/geordin/carts:1.${BUILD_NUMBER}.0"),
           string(name: 'WaitForResult',value:'60')
      ]
