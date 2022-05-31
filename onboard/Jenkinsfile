@@ -8,7 +8,7 @@ node {
         git 'git@github.com:geordin/keptn-templates.git'
       }
 
-	stage('Initialize Keptn') {
+	stage('Initialize Keptn Dev') {
 
         // Initialize the Keptn Project - ensures the Keptn Project is created with the passed shipyard
         keptn.keptnInit project:"demo", service:"carts", stage:"dev", shipyard:'shipyard.yaml'
@@ -16,8 +16,28 @@ node {
         // Upload all the files
         keptn.keptnAddResources('./carts.tgz','helm/carts.tgz')
         keptn.keptnAddResources('./dynatrace.conf.yaml','dynatrace/dynatrace.conf.yaml')
+    }
+
+    stage('Initialize Keptn Staging') {
+
+        // Initialize the Keptn Project - ensures the Keptn Project is created with the passed shipyard
+        keptn.keptnInit project:"demo", service:"carts", stage:"staging"
+        // Upload all the files
+        keptn.keptnAddResources('./carts.tgz','helm/carts.tgz')
+        keptn.keptnAddResources('./dynatrace.conf.yaml','dynatrace/dynatrace.conf.yaml')
         keptn.keptnAddResources('./sli.yaml','dynatrace/sli.yaml')
         keptn.keptnAddResources('./slo.yaml','slo.yaml')
+    }
+
+    stage('Initialize Keptn Prod') {
+
+        // Initialize the Keptn Project - ensures the Keptn Project is created with the passed shipyard
+        keptn.keptnInit project:"demo", service:"carts", stage:"prod"
+
+        // Upload all the files
+        keptn.keptnAddResources('./carts.tgz','helm/carts.tgz')
+        keptn.keptnAddResources('./dynatrace.conf.yaml','dynatrace/dynatrace.conf.yaml')
+
     }
 
 }
