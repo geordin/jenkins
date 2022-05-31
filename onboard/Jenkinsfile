@@ -1,0 +1,24 @@
+@Library('keptn-library@6.0.0')
+import sh.keptn.Keptn
+def keptn = new sh.keptn.Keptn()
+
+node {
+
+	stage('Cloning Git') {
+      steps {
+        git 'git@github.com:geordin/keptn-templates.git'
+      }
+
+	stage('Initialize Keptn') {
+
+        // Initialize the Keptn Project - ensures the Keptn Project is created with the passed shipyard
+        keptn.keptnInit project:"demo", service:"cart", shipyard:'shipyard.yaml'
+
+        // Upload all the files
+        keptn.keptnAddResources('keptn-templates/carts.tgz','helm/carts.tgz')
+        keptn.keptnAddResources('keptn-templates/dynatrace.conf.yaml','dynatrace/dynatrace.conf.yaml')
+        keptn.keptnAddResources('keptn-templates/sli.yaml','dynatrace/sli.yaml')
+        keptn.keptnAddResources('keptn-templates/slo.yaml','slo.yaml')
+    }
+
+}
