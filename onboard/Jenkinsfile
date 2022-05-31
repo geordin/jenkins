@@ -14,10 +14,10 @@ node {
         keptn.keptnInit project:"demo", service:"cart", stage:"dev", shipyard:'shipyard.yaml'
 
         // Upload all the files
-        keptn.keptnAddResources('keptn-templates/carts.tgz','helm/carts.tgz')
-        keptn.keptnAddResources('keptn-templates/dynatrace.conf.yaml','dynatrace/dynatrace.conf.yaml')
-        keptn.keptnAddResources('keptn-templates/sli.yaml','dynatrace/sli.yaml')
-        keptn.keptnAddResources('keptn-templates/slo.yaml','slo.yaml')
+        keptn.keptnAddResources('./carts.tgz','helm/carts.tgz')
+        keptn.keptnAddResources('./dynatrace.conf.yaml','dynatrace/dynatrace.conf.yaml')
+        keptn.keptnAddResources('./sli.yaml','dynatrace/sli.yaml')
+        keptn.keptnAddResources('./slo.yaml','slo.yaml')
     }
 
 }
