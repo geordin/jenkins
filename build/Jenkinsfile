@@ -1,6 +1,6 @@
 pipeline {
   environment {
-    registry = "geordin/spring-petclinic"
+    registry = "geordin/carts"
     registryCredential = 'docker-hub'
     dockerImage = ''
   }
@@ -8,7 +8,7 @@ pipeline {
   stages {
     stage('Cloning Git') {
       steps {
-        git 'git@github.com:geordin/spring-petclinic.git'
+        git 'git@github.com:geordin/carts.git'
       }
     }
     stage('Compile') {
@@ -53,7 +53,7 @@ pipeline {
           string(name: 'Project',value: 'petclinic'),
           string(name: 'Stage',value:'dev'),
           string(name: 'Service',value:'petclinic'),
-          string(name: 'Image',value:"docker.io/geordin/spring-petclinic:1.${BUILD_NUMBER}.0"),
+          string(name: 'Image',value:"docker.io/geordin/carts:1.${BUILD_NUMBER}.0"),
           string(name: 'WaitForResult',value:'60')
      ]
       }
