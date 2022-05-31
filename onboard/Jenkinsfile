@@ -32,7 +32,7 @@ node {
     stage('Initialize Keptn Prod') {
 
         // Initialize the Keptn Project - ensures the Keptn Project is created with the passed shipyard
-        keptn.keptnInit project:"demo", service:"carts", stage:"prod"
+        keptn.keptnInit project:"demo", service:"carts", stage:"production"
 
         // Upload all the files
         keptn.keptnAddResources('./carts.tgz','helm/carts.tgz')
