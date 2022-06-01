@@ -17,7 +17,7 @@ node {
 
 	stage('Initialize Keptn Dev Environment') {
 
-        keptn.keptnInit project:"${params.Project}", service:"${params.Service}", stage:"dev", shipyard:'shipyard.yaml'
+        keptn.keptnInit project:"${params.Project}", service:"${params.Service}", stage:"dev", shipyard:'./keptn/shipyard.yaml'
 		
         keptn.keptnAddResources('./helm/carts.tgz','helm/carts.tgz')
         keptn.keptnAddResources('./dynatrace/dynatrace.conf.yaml','dynatrace/dynatrace.conf.yaml')
