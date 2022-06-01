@@ -3,40 +3,43 @@ import sh.keptn.Keptn
 def keptn = new sh.keptn.Keptn()
 
 node {
-
-	stage('Cloning Git') {
+  properties([
+        parameters([
+         string(defaultValue: 'sockshop', description: 'Name of your Keptn Project', name: 'Project', trim: false), 
+         string(defaultValue: 'carts', description: 'Name of the service', name: 'Service', trim: false),
+        ])
+    ])
+	stage('Downloading Templates') {
+		
         git 'git@github.com:geordin/keptn-templates.git'
+		
       }
 
-	stage('Initialize Keptn Dev') {
+	stage('Initialize Keptn Dev Environment') {
 
-        // Initialize the Keptn Project - ensures the Keptn Project is created with the passed shipyard
-        keptn.keptnInit project:"demo", service:"carts", stage:"dev", shipyard:'shipyard.yaml'
-
-        // Upload all the files
-        keptn.keptnAddResources('./carts.tgz','helm/carts.tgz')
-        keptn.keptnAddResources('./dynatrace.conf.yaml','dynatrace/dynatrace.conf.yaml')
+        keptn.keptnInit project:"${params.Project}", service:"${params.Service}", stage:"dev", shipyard:'shipyard.yaml'
+		
+        keptn.keptnAddResources('./helm/carts.tgz','helm/carts.tgz')
+        keptn.keptnAddResources('./dynatrace/dynatrace.conf.yaml','dynatrace/dynatrace.conf.yaml')
     }
 
-    stage('Initialize Keptn Staging') {
+    stage('Initialize Keptn Staging Environment') {
 
-        // Initialize the Keptn Project - ensures the Keptn Project is created with the passed shipyard
-        keptn.keptnInit project:"demo", service:"carts", stage:"staging"
-        // Upload all the files
-        keptn.keptnAddResources('./carts.tgz','helm/carts.tgz')
-        keptn.keptnAddResources('./dynatrace.conf.yaml','dynatrace/dynatrace.conf.yaml')
-        keptn.keptnAddResources('./sli.yaml','dynatrace/sli.yaml')
-        keptn.keptnAddResources('./slo.yaml','slo.yaml')
+        keptn.keptnInit project:"${params.Project}", service:"${params.Service}", stage:"staging"
+	    
+        keptn.keptnAddResources('./helm/carts.tgz','helm/carts.tgz')
+        keptn.keptnAddResources('./dynatrace/dynatrace.conf.yaml','dynatrace/dynatrace.conf.yaml')
+	keptn.keptnAddResources('./jmeter/load.jmx','jmeter/load.jmx')
+        keptn.keptnAddResources('./dynatrace/sli.yaml','dynatrace/sli.yaml')
+        keptn.keptnAddResources('./keptn/slo.yaml','slo.yaml')
     }
 
-    stage('Initialize Keptn Prod') {
+    stage('Initialize Keptn Production Environment') {
 
-        // Initialize the Keptn Project - ensures the Keptn Project is created with the passed shipyard
-        keptn.keptnInit project:"demo", service:"carts", stage:"production"
+        keptn.keptnInit project:"${params.Project}", service:"${params.Service}", stage:"production"
 
-        // Upload all the files
-        keptn.keptnAddResources('./carts.tgz','helm/carts.tgz')
-        keptn.keptnAddResources('./dynatrace.conf.yaml','dynatrace/dynatrace.conf.yaml')
+        keptn.keptnAddResources('./helm/carts.tgz','helm/carts.tgz')
+        keptn.keptnAddResources('./dynatrace/dynatrace.conf.yaml','dynatrace/dynatrace.conf.yaml')
 
     }
 
